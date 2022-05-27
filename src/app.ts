@@ -22,6 +22,6 @@ app.use('/users', userRouter);
 app.use(express.static('public')); // public폴더 안에있는 모든 리소스를 가져갈 수 있음
 
 app.get('/', (req, res) => {
-  return res.status(200).json({ message: '서버연결!' });
+  return res.status(200).json({ message: '서버연결!!' });
 });
 app.listen(port);
