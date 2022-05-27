@@ -24,4 +24,4 @@ app.use(express.static('public')); // public폴더 안에있는 모든 리소스
 app.get('/', (req, res) => {
   return res.status(200).json({ message: '서버연결!!' });
 });
-app.listen(port);
+app.listen(process.env.PORT || 5000);
