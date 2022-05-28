@@ -4,7 +4,7 @@ import {
   updateNickName,
   updatePassword,
   updateProfile,
-} from './../Controller/userController';
+} from '../Controller/userController';
 import express from 'express';
 import {
   deleteUser,

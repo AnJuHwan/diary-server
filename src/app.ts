@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import Mongoose from 'mongoose';
-import userRouter from './Router/userRouter';
-import postRouter from './Router/postRouter';
+import dotenv from 'dotenv';
+import userRouter from './router/userRouter';
+import postRouter from './router/postRouter';
 
 dotenv.config();
 
