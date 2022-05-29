@@ -35,7 +35,7 @@ export const signupEmailCheck = (req: Request, res: Response) => {
       if (item) {
         return res.status(400).json({ success: false, message: '이미 존재하는 이메일 입니다.' });
       }
-      res.status(200).json({ succes: true, message: '사용 가능한 이메일 입니다.' });
+      res.status(200).json({ success: true, message: '사용 가능한 이메일 입니다.' });
     })
     .catch((error) => {
       res.status(500).json({ success: false, message: 'server Error' });
