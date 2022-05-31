@@ -25,7 +25,7 @@ const getPost = (req, res) => {
 exports.getPost = getPost;
 // 특정 상세 포스트 가져오기
 const getDetailPost = (req, res) => {
-    postModel_1.default.findOne({ userId: req.params.id })
+    postModel_1.default.find({ userId: req.params.id })
         .exec()
         .then((item) => {
         res.status(200).json({ success: true, postItem: item });
