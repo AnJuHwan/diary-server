@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePost = exports.editPost = exports.uploadPost = exports.getDetailPost = exports.getPost = void 0;
+exports.deletePost = exports.editPost = exports.uploadPost = exports.getDetailPost = exports.getUserPost = exports.getPost = void 0;
 const postModel_1 = __importDefault(require("../Model/postModel"));
 const userModel_1 = __importDefault(require("../Model/userModel"));
 // 모든 포스트 가져오기
@@ -23,6 +23,19 @@ const getPost = (req, res) => {
     });
 };
 exports.getPost = getPost;
+// 회원의 모든 포스트 가져오기
+const getUserPost = (req, res) => {
+    postModel_1.default.find({ userId: req.params.userId })
+        .exec()
+        .then((item) => {
+        res.status(200).json({ success: true, postItem: item });
+    })
+        .catch((error) => {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'server error' });
+    });
+};
+exports.getUserPost = getUserPost;
 // 특정 상세 포스트 가져오기
 const getDetailPost = (req, res) => {
     postModel_1.default.findOne({ _id: req.params.id })
