@@ -17,7 +17,7 @@ router.get('/', getPost);
 router.get('/:userId', getUserPost);
 
 // 특정 상세 포스트 가져오기
-router.get('/:id', getDetailPost);
+router.get('/detail/:id', getDetailPost);
 
 // 포스트 업로드
 router.post('/upload', uploadPost);

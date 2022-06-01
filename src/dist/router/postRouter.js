@@ -11,7 +11,7 @@ router.get('/', postController_1.getPost);
 // 회원의 모든 포스트 가져오기
 router.get('/:userId', postController_1.getUserPost);
 // 특정 상세 포스트 가져오기
-router.get('/:id', postController_1.getDetailPost);
+router.get('/detail/:id', postController_1.getDetailPost);
 // 포스트 업로드
 router.post('/upload', postController_1.uploadPost);
 // 포스트 수정
