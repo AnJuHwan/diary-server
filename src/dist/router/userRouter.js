@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = require("./../Middleware/user");
 const userController_1 = require("../Controller/userController");
 const express_1 = __importDefault(require("express"));
 const userController_2 = require("../Controller/userController");
@@ -22,7 +23,7 @@ router.post('/delete', userController_2.deleteUser);
 // 내 유저 정보 불러오기
 router.get('/my', userController_1.myUser);
 // 닉네임 변경
-router.put('/update/nickname', userController_1.updateNickName);
+router.put('/update/nickname', user_1.updateNickNameMiddleware, userController_1.updateNickName);
 // 프로필 변경
 router.put('/update/profile', userController_1.updateProfile);
 // 패스워드 변경

@@ -1,3 +1,4 @@
+import { updateNickNameMiddleware } from './../Middleware/user';
 import {
   allUser,
   myUser,
@@ -31,7 +32,7 @@ router.post('/delete', deleteUser);
 // 내 유저 정보 불러오기
 router.get('/my', myUser);
 // 닉네임 변경
-router.put('/update/nickname', updateNickName);
+router.put('/update/nickname', updateNickNameMiddleware, updateNickName);
 // 프로필 변경
 router.put('/update/profile', updateProfile);
 // 패스워드 변경

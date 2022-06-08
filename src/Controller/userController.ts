@@ -130,9 +130,8 @@ export const updateNickName = (req: Request, res: Response) => {
     .then((user) => {
       if (!user) {
         return res.status(400).json({ message: '유저를 찾지 못했습니다.' });
-      } else {
-        return res.status(200).json({ success: true, user });
       }
+      return res.status(200).json({ success: true, user });
     })
     .catch((err) => {
       res.status(500).json({ success: false, message: 'server error' });
