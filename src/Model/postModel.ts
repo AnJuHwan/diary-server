@@ -8,6 +8,9 @@ const postSchema = new Schema(
     title: String,
     content: String,
     postNum: Number,
+    postImage: String,
+    sharePost: Boolean,
+    date: String,
   },
   { timestamps: true, collection: 'posts' },
 );

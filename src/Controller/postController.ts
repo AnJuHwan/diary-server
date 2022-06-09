@@ -51,11 +51,14 @@ export const uploadPost = (req: Request, res: Response) => {
     userId: req.body.userId,
     title: req.body.title,
     content: req.body.content,
+    postImage: req.body.postImage,
+    sharePost: req.body.sharePost,
+    date: req.body.date,
   };
 
   User.findOne({ _id: temp.userId })
     .exec()
-    .then((userInfo) => {
+    .then(() => {
       const NewPost = new Post(temp);
       NewPost.save().then(() => {
         res.status(200).json({ success: true, postItem: NewPost });
@@ -75,6 +78,9 @@ export const editPost = (req: Request, res: Response) => {
       $set: {
         title: req.body.title,
         content: req.body.content,
+        postImage: req.body.postImage,
+        sharePost: req.body.sharePost,
+        date: req.body.date,
       },
     },
     { new: true },

@@ -55,10 +55,13 @@ const uploadPost = (req, res) => {
         userId: req.body.userId,
         title: req.body.title,
         content: req.body.content,
+        postImage: req.body.postImage,
+        sharePost: req.body.sharePost,
+        date: req.body.date,
     };
     userModel_1.default.findOne({ _id: temp.userId })
         .exec()
-        .then((userInfo) => {
+        .then(() => {
         const NewPost = new postModel_1.default(temp);
         NewPost.save().then(() => {
             res.status(200).json({ success: true, postItem: NewPost });
@@ -76,6 +79,9 @@ const editPost = (req, res) => {
         $set: {
             title: req.body.title,
             content: req.body.content,
+            postImage: req.body.postImage,
+            sharePost: req.body.sharePost,
+            date: req.body.date,
         },
     }, { new: true })
         .exec()
