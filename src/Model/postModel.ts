@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import User from './userModel';
 
 const { Schema } = mongoose;
 
@@ -11,6 +12,7 @@ const postSchema = new Schema(
     postImage: String,
     sharePost: String,
     date: String,
+    writer: { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
   },
   { timestamps: true, collection: 'posts' },
 );

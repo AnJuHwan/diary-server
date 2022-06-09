@@ -1,14 +1,25 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePost = exports.editPost = exports.uploadPost = exports.getDetailPost = exports.getUserPost = exports.getPost = void 0;
+const mongodb_1 = require("mongodb");
 const postModel_1 = __importDefault(require("../Model/postModel"));
 const userModel_1 = __importDefault(require("../Model/userModel"));
 // 모든 포스트 가져오기
-const getPost = (req, res) => {
-    postModel_1.default.find()
+const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield postModel_1.default.find({})
+        .populate({ path: 'writer', model: 'User' })
         .sort({ updatedAt: -1 })
         .exec()
         .then((item) => {
@@ -21,11 +32,13 @@ const getPost = (req, res) => {
         console.log(error);
         res.status(500).json({ success: false, message: 'server error' });
     });
-};
+});
 exports.getPost = getPost;
 // 회원의 모든 포스트 가져오기
 const getUserPost = (req, res) => {
     postModel_1.default.find({ userId: req.params.userId })
+        .populate('writer')
+        .sort({ updatedAt: -1 })
         .exec()
         .then((item) => {
         res.status(200).json({ success: true, postItem: item });
@@ -58,6 +71,7 @@ const uploadPost = (req, res) => {
         postImage: req.body.postImage,
         sharePost: req.body.sharePost,
         date: req.body.date,
+        writer: new mongodb_1.ObjectId(req.body.writer),
     };
     userModel_1.default.findOne({ _id: temp.userId })
         .exec()
