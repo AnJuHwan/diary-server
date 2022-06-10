@@ -18,4 +18,6 @@ router.post('/upload', postController_1.uploadPost);
 router.put('/edit', postController_1.editPost);
 // 포스트 삭제
 router.delete('/:id', postController_1.deletePost);
+// 공개된 포스트 가져오기
+router.get('/public/get', postController_1.getPublicPost);
 exports.default = router;

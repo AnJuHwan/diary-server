@@ -4,6 +4,7 @@ import {
   editPost,
   getDetailPost,
   getPost,
+  getPublicPost,
   getUserPost,
   uploadPost,
 } from '../Controller/postController';
@@ -27,5 +28,8 @@ router.put('/edit', editPost);
 
 // 포스트 삭제
 router.delete('/:id', deletePost);
+
+// 공개된 포스트 가져오기
+router.get('/public/get', getPublicPost);
 
 export default router;

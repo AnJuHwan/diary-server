@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePost = exports.editPost = exports.uploadPost = exports.getDetailPost = exports.getUserPost = exports.getPost = void 0;
+exports.deletePost = exports.editPost = exports.uploadPost = exports.getPublicPost = exports.getDetailPost = exports.getUserPost = exports.getPost = void 0;
 const mongodb_1 = require("mongodb");
 const postModel_1 = __importDefault(require("../Model/postModel"));
 const userModel_1 = __importDefault(require("../Model/userModel"));
 // 모든 포스트 가져오기
 const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield postModel_1.default.find({})
-        .populate({ path: 'writer', model: 'User' })
+        .populate('writer')
         .sort({ updatedAt: -1 })
         .exec()
         .then((item) => {
@@ -52,6 +52,7 @@ exports.getUserPost = getUserPost;
 // 특정 상세 포스트 가져오기
 const getDetailPost = (req, res) => {
     postModel_1.default.findOne({ _id: req.params.id })
+        .populate('writer')
         .exec()
         .then((item) => {
         res.status(200).json({ success: true, postItem: item });
@@ -62,6 +63,20 @@ const getDetailPost = (req, res) => {
     });
 };
 exports.getDetailPost = getDetailPost;
+// 공개된 포스트 가져오기
+const getPublicPost = (req, res) => {
+    postModel_1.default.find({ sharePost: 'public' })
+        .populate('writer')
+        .exec()
+        .then((item) => {
+        res.status(200).json({ success: true, postItem: item });
+    })
+        .catch((error) => {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'server error' });
+    });
+};
+exports.getPublicPost = getPublicPost;
 // 포스트 업로드
 const uploadPost = (req, res) => {
     let temp = {

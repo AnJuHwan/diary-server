@@ -6,7 +6,7 @@ import User from '../Model/userModel';
 // 모든 포스트 가져오기
 export const getPost = async (req: Request, res: Response) => {
   await Post.find({})
-    .populate({ path: 'writer', model: 'User' })
+    .populate('writer')
     .sort({ updatedAt: -1 })
     .exec()
     .then((item) => {
@@ -39,6 +39,21 @@ export const getUserPost = (req: Request, res: Response) => {
 // 특정 상세 포스트 가져오기
 export const getDetailPost = (req: Request, res: Response) => {
   Post.findOne({ _id: req.params.id })
+    .populate('writer')
+    .exec()
+    .then((item) => {
+      res.status(200).json({ success: true, postItem: item });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ success: false, message: 'server error' });
+    });
+};
+
+// 공개된 포스트 가져오기
+export const getPublicPost = (req: Request, res: Response) => {
+  Post.find({ sharePost: 'public' })
+    .populate('writer')
     .exec()
     .then((item) => {
       res.status(200).json({ success: true, postItem: item });
