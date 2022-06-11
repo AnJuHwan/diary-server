@@ -54,6 +54,7 @@ export const getDetailPost = (req: Request, res: Response) => {
 export const getPublicPost = (req: Request, res: Response) => {
   Post.find({ sharePost: 'public' })
     .populate('writer')
+    .sort({ updatedAt: -1 })
     .exec()
     .then((item) => {
       res.status(200).json({ success: true, postItem: item });
